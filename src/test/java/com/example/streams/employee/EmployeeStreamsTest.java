@@ -259,4 +259,5 @@ class EmployeeStreamsTest {
     List<Employee> lowercase = employeeStreams.findEmployeesByNamePrefix(employees, "a");
     assertEquals(0, lowercase.size(), "Should be case-sensitive by default");
   }
+
 }

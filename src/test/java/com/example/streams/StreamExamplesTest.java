@@ -89,4 +89,30 @@ class StreamExamplesTest {
     assertEquals(oddOnly, streamExamples.filterOddNumbers(oddOnly),
             "List with only odd numbers should return all elements");
   }
+
+  /*
+   * 30/09/2025 06:30 AM BRT for
+   * Tech Interview Question for Oskon Tech (Jaime):
+   * Interviewer: Avner Pereira (Accenture)
+   * Given a string, find the most used characters.
+   * Examples:
+   * Input: "Vitor Martins" Output: r, t, i
+   * Input: "Avner Pereira" Output: r, e
+   */
+  @Test
+  @DisplayName("Given a string, find the most used characters")
+  void testMostUsedCharacters() {
+    // Given
+    String input1 = "Vitor Martins";
+    String input2 = "Avner Pereira";
+
+    // When
+    List<Character> result1 = streamExamples.findMostUsedCharacters(input1);
+    List<Character> result2 = streamExamples.findMostUsedCharacters(input2);
+
+    // Then
+    assertEquals(Arrays.asList('r', 't', 'i'), result1, "Most used characters in 'Vitor Martins' should be r, t, i");
+    assertEquals(Arrays.asList('r', 'e'), result2, "Most used characters in 'Avner Pereira' should be r, e");
+  }
+
 }

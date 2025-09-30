@@ -8,56 +8,56 @@ import static java.util.stream.Collectors.*;
 public class EmployeeStreams {
   public Map<String, Long> groupAndCountByDepartment(List<Employee> employees) {
     return employees.stream()
-                    .collect(groupingBy(Employee::department, counting()));
+            .collect(groupingBy(Employee::department, counting()));
   }
 
   public List<Integer> findTopNSalaries(List<Employee> employees, int i) {
     return employees.stream()
-                    .map(Employee::salary)
-                    .distinct()
-                    .sorted((a, b) -> b - a)
-                    .limit(i)
-                    .toList();
+            .map(Employee::salary)
+            .distinct()
+            .sorted((a, b) -> b - a)
+            .limit(i)
+            .toList();
   }
 
   public Map<Boolean, List<Employee>> partitionBySalaryThreshold(List<Employee> employees, int threshold) {
     return employees.stream()
-                    .collect(partitioningBy(e -> e.salary() > threshold));
+            .collect(partitioningBy(e -> e.salary() > threshold));
   }
 
   public Map<String, Double> calculateAverageSalaryByDepartment(List<Employee> employees) {
     return employees.stream()
-                    .collect(groupingBy(Employee::department, averagingInt(Employee::salary)));
+            .collect(groupingBy(Employee::department, averagingInt(Employee::salary)));
   }
 
   public Set<String> extractUniqueSkills(List<Employee> employees) {
     return employees.stream()
-                    .flatMap(employee -> employee.skills().stream())
-                    .collect(Collectors.toSet());
+            .flatMap(employee -> employee.skills().stream())
+            .collect(Collectors.toSet());
   }
 
   public List<String> findEmployeesInSalaryRange(List<Employee> employees, int i, int i1) {
     return employees.stream()
-                    .filter(employee -> employee.salary() >= i && employee.salary() <= i1)
-                    .map(Employee::name)
-                    .toList();
+            .filter(employee -> employee.salary() >= i && employee.salary() <= i1)
+            .map(Employee::name)
+            .toList();
   }
 
   public Map<String, String> joinNamesByDepartment(List<Employee> employees, String s) {
     return employees.stream()
-                    .collect(groupingBy(Employee::department,
-                                        mapping(Employee::name,
-                                                joining(s)))
-                    );
+            .collect(groupingBy(Employee::department,
+                    mapping(Employee::name,
+                            joining(s)))
+            );
   }
 
   public Optional<Integer> findSecondHighestSalary(List<Employee> employees) {
     return employees.stream()
-                    .map(Employee::salary)
-                    .distinct()
-                    .sorted((a, b) -> b - a)
-                    .skip(1)
-                    .findFirst();
+            .map(Employee::salary)
+            .distinct()
+            .sorted((a, b) -> b - a)
+            .skip(1)
+            .findFirst();
   }
 
   // collectingAndThen() is a collector that performs a finishing transformation after collecting.
@@ -68,13 +68,14 @@ public class EmployeeStreams {
   // that name.
   public Map<String, Employee> convertToMapByName(List<Employee> employees) {
     return employees.stream()
-                    .collect(groupingBy(Employee::name,
-                                        collectingAndThen(toList(), List::getFirst)));
+            .collect(groupingBy(Employee::name,
+                    collectingAndThen(toList(), List::getFirst)));
   }
 
   public List<Employee> findEmployeesByNamePrefix(List<Employee> employees, String prefix) {
     return employees.stream()
-                    .filter(e -> e.name().startsWith(prefix))
-                    .toList();
+            .filter(e -> e.name().startsWith(prefix))
+            .toList();
   }
+
 }
