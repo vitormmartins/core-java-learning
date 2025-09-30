@@ -1,5 +1,7 @@
 package com.example.streams.employee;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,8 @@ public record Employee(String name, String department, int salary, List<String> 
   }
 
   @Override
+  @NonNull
   public String toString() {
-    return StringTemplate.STR."Employee{name='\{name}', department='\{department}', salary=\{salary}}";
+    return String.format("Employee{name='%s', department='%s', salary=%d}", name, department, salary);
   }
 }

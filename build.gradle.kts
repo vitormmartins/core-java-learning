@@ -4,6 +4,7 @@ plugins {
 
 group = "com.example"
 version = "1.0-SNAPSHOT"
+val lombokVersion = "1.18.32"
 val slf4jVersion = "2.0.13"
 val logbackVersion = "1.5.13"
 val junitBomVersion = "5.9.3"
@@ -14,6 +15,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
     testImplementation(platform("org.junit:junit-bom:$junitBomVersion"))
