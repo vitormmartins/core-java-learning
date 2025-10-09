@@ -111,8 +111,211 @@ class StreamExamplesTest {
     List<Character> result2 = streamExamples.findMostUsedCharacters(input2);
 
     // Then
-    assertEquals(Arrays.asList('r', 't', 'i'), result1, "Most used characters in 'Vitor Martins' should be r, t, i");
-    assertEquals(Arrays.asList('r', 'e'), result2, "Most used characters in 'Avner Pereira' should be r, e");
+    assertEquals(Arrays.asList('i', 'r', 't'), result1, "Most used characters in 'Vitor Martins' should be i, r, t");
+    assertEquals(Arrays.asList('e', 'r'), result2, "Most used characters in 'Avner Pereira' should be e, r");
   }
 
+  @Test
+  @DisplayName("Should find least used characters in a string")
+  void testLeastUsedCharacters() {
+    // Given
+    String input1 = "abbbc";
+    String input2 = "Hello World";
+
+    // When
+    List<Character> result1 = streamExamples.findLeastUsedCharacters(input1);
+    List<Character> result2 = streamExamples.findLeastUsedCharacters(input2);
+
+    // Then
+    assertEquals(Arrays.asList('a', 'c'), result1, "Least used characters should be a and c (1 occurrence each)");
+    assertTrue(result2.contains('h') && result2.contains('e') && result2.contains('w'),
+            "Should contain characters with minimum frequency");
+  }
+
+  @Test
+  @DisplayName("Should find characters with specific frequency")
+  void testFindCharactersWithFrequency() {
+    // Given
+    String input = "aabbbbccc";
+
+    // When
+    List<Character> twiceOccurring = streamExamples.findCharactersWithFrequency(input, 2);
+    List<Character> fourTimesOccurring = streamExamples.findCharactersWithFrequency(input, 4);
+    List<Character> threeTimesOccurring = streamExamples.findCharactersWithFrequency(input, 3);
+
+    // Then
+    assertEquals(List.of('a'), twiceOccurring, "Only 'a' appears exactly 2 times");
+    assertEquals(List.of('b'), fourTimesOccurring, "Only 'b' appears exactly 4 times");
+    assertEquals(List.of('c'), threeTimesOccurring, "Only 'c' appears exactly 3 times");
+  }
+
+  @Test
+  @DisplayName("Should get character frequencies as a map")
+  void testGetCharacterFrequencies() {
+    // Given
+    String input = "hello";
+
+    // When
+    Map<Character, Long> frequencies = streamExamples.getCharacterFrequencies(input);
+
+    // Then
+    assertEquals(2L, frequencies.get('l'), "'l' should appear 2 times");
+    assertEquals(1L, frequencies.get('h'), "'h' should appear 1 time");
+    assertEquals(1L, frequencies.get('e'), "'e' should appear 1 time");
+    assertEquals(1L, frequencies.get('o'), "'o' should appear 1 time");
+    assertEquals(4, frequencies.size(), "Should have 4 unique characters");
+  }
+
+  @Test
+  @DisplayName("Should find the longest word in a sentence")
+  void testFindLongestWord() {
+    // Given
+    String sentence1 = "The quick brown fox jumps";
+    String sentence2 = "I am learning Java Streams";
+
+    // When
+    Optional<String> result1 = streamExamples.findLongestWord(sentence1);
+    Optional<String> result2 = streamExamples.findLongestWord(sentence2);
+
+    // Then
+    assertTrue(result1.isPresent());
+    assertEquals("quick", result1.get(), "Longest word should be 'quick'");
+    assertTrue(result2.isPresent());
+    assertTrue(result2.get().equals("learning") || result2.get().equals("Streams"),
+            "Longest word should be either 'learning' or 'Streams'");
+  }
+
+  @Test
+  @DisplayName("Should find all longest words in a sentence")
+  void testFindAllLongestWords() {
+    // Given
+    String sentence = "cat dog bird fish";
+
+    // When
+    List<String> result = streamExamples.findAllLongestWords(sentence);
+
+    // Then
+    assertEquals(2, result.size(), "Should have 2 words with length 4");
+    assertTrue(result.contains("bird") && result.contains("fish"),
+            "Should contain both 'bird' and 'fish'");
+  }
+
+  @Test
+  @DisplayName("Should count vowels in a string")
+  void testCountVowels() {
+    // Given
+    String input1 = "Hello World";
+    String input2 = "AEIOU";
+    String input3 = "bcdfg";
+
+    // When
+    long count1 = streamExamples.countVowels(input1);
+    long count2 = streamExamples.countVowels(input2);
+    long count3 = streamExamples.countVowels(input3);
+
+    // Then
+    assertEquals(3L, count1, "'Hello World' should have 3 vowels (e, o, o)");
+    assertEquals(5L, count2, "'AEIOU' should have 5 vowels");
+    assertEquals(0L, count3, "'bcdfg' should have 0 vowels");
+  }
+
+  @Test
+  @DisplayName("Should find the most common word in text")
+  void testFindMostCommonWord() {
+    // Given
+    String text = "the cat and the dog and the bird";
+
+    // When
+    Optional<String> result = streamExamples.findMostCommonWord(text);
+
+    // Then
+    assertTrue(result.isPresent());
+    assertEquals("the", result.get(), "'the' appears 3 times and should be most common");
+  }
+
+  @Test
+  @DisplayName("Should group words by their length")
+  void testGroupWordsByLength() {
+    // Given
+    String text = "I am a Java developer";
+
+    // When
+    Map<Integer, List<String>> grouped = streamExamples.groupWordsByLength(text);
+
+    // Then
+    assertEquals(List.of("I", "a"), grouped.get(1), "Should have 2 words of length 1");
+    assertEquals(List.of("am"), grouped.get(2), "Should have 1 word of length 2");
+    assertEquals(List.of("Java"), grouped.get(4), "Should have 1 word of length 4");
+    assertEquals(List.of("developer"), grouped.get(9), "Should have 1 word of length 9");
+  }
+
+  @Test
+  @DisplayName("Should find unique characters preserving order")
+  void testFindUniqueCharactersInOrder() {
+    // Given
+    String input = "hello world";
+
+    // When
+    List<Character> result = streamExamples.findUniqueCharactersInOrder(input);
+
+    // Then
+    assertEquals(Arrays.asList('h', 'e', 'l', 'o', ' ', 'w', 'r', 'd'), result,
+            "Should preserve order of first occurrence");
+  }
+
+  @Test
+  @DisplayName("Should check if string is palindrome")
+  void testIsPalindrome() {
+    // Given & When & Then
+    assertTrue(streamExamples.isPalindrome("racecar"), "'racecar' should be palindrome");
+    assertTrue(streamExamples.isPalindrome("A man a plan a canal Panama"),
+            "Should ignore spaces and case");
+    assertFalse(streamExamples.isPalindrome("hello"), "'hello' should not be palindrome");
+    assertTrue(streamExamples.isPalindrome(""), "Empty string should be palindrome");
+  }
+
+  @Test
+  @DisplayName("Should count consonants in a string")
+  void testCountConsonants() {
+    // Given
+    String input1 = "Hello World";
+    String input2 = "aeiou";
+    String input3 = "bcdfg";
+
+    // When
+    long count1 = streamExamples.countConsonants(input1);
+    long count2 = streamExamples.countConsonants(input2);
+    long count3 = streamExamples.countConsonants(input3);
+
+    // Then
+    assertEquals(7L, count1, "'Hello World' should have 7 consonants");
+    assertEquals(0L, count2, "'aeiou' should have 0 consonants");
+    assertEquals(5L, count3, "'bcdfg' should have 5 consonants");
+  }
+
+  @Test
+  @DisplayName("Edge case: Most used characters with empty string")
+  void testMostUsedCharactersEmptyString() {
+    // Given
+    String empty = "";
+
+    // When
+    List<Character> result = streamExamples.findMostUsedCharacters(empty);
+
+    // Then
+    assertTrue(result.isEmpty(), "Empty string should return empty list");
+  }
+
+  @Test
+  @DisplayName("Edge case: Most used characters with single character")
+  void testMostUsedCharactersSingleChar() {
+    // Given
+    String single = "aaaaa";
+
+    // When
+    List<Character> result = streamExamples.findMostUsedCharacters(single);
+
+    // Then
+    assertEquals(List.of('a'), result, "Should return single character");
+  }
 }
