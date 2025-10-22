@@ -32,20 +32,20 @@ public class StreamExamples {
 
   public List<Character> findMostUsedCharacters(String input1) {
     Set<Map.Entry<Character, Long>> entries = input1.chars()
-            .mapToObj(c -> (char) c)
-            .map(Character::toLowerCase)
-            .collect(groupingBy(character -> character, counting()))
-            .entrySet();
+                                                    .mapToObj(c -> (char) c)
+                                                    .map(Character::toLowerCase)
+                                                    .collect(groupingBy(character -> character, counting()))
+                                                    .entrySet();
 
     Optional<Long> maxValue = entries.stream()
-            .map(Map.Entry::getValue)
-            .max(Long::compare);
+                                     .map(Map.Entry::getValue)
+                                     .max(Long::compare);
 
     return entries.stream()
-            .filter(e -> Objects.equals(e.getValue(), maxValue.get()))
-            .map(Map.Entry::getKey)
-            .sorted()
-            .toList();
+                  .filter(e -> Objects.equals(e.getValue(), maxValue.get()))
+                  .map(Map.Entry::getKey)
+                  .sorted()
+                  .toList();
   }
 
   /**
