@@ -3,6 +3,7 @@ package com.example.reactive;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,17 +105,22 @@ public class ReactiveStringProcessor {
   /**
    * Get character frequency map reactively
    */
-  public Mono<Map<Character, Long>> getCharacterFrequenciesReactive(String input){
-    // Implementation here
-    return Mono.empty();
+  public Mono<Map<Character, Long>> getCharacterFrequenciesReactive(String input) {
+    return Flux.fromStream(input.chars().mapToObj(c -> (char) c))
+               .collect(HashMap::new, (map, character) ->
+                                        map.merge(character, 1L, Long::sum));
   }
 
   /**
    * Check if string is palindrome reactively
    */
   public Mono<Boolean> isPalindromeReactive(String input){
-    // Implementation here
-    return Mono.empty();
+    if(input == null) {
+      return Mono.just(false);
+    }
+    String normalized = input.toLowerCase();
+    String reversed = new StringBuilder(normalized).reverse().toString();
+    return Mono.just(normalized.equals(reversed));
   }
 
   /**

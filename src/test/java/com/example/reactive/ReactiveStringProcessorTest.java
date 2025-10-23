@@ -145,13 +145,13 @@ class ReactiveStringProcessorTest {
 
     // Then
     StepVerifier.create(result)
-            .assertNext(map -> {
-              assertEquals(2L, map.get('l'));
-              assertEquals(1L, map.get('h'));
-              assertEquals(1L, map.get('e'));
-              assertEquals(1L, map.get('o'));
-            })
-            .verifyComplete();
+                .assertNext(map -> {
+                  assertEquals(2L, map.get('l'));
+                  assertEquals(1L, map.get('h'));
+                  assertEquals(1L, map.get('e'));
+                  assertEquals(1L, map.get('o'));
+                })
+                .verifyComplete();
   }
 
   @Test
