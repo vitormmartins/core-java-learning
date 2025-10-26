@@ -243,11 +243,11 @@ class ReactiveStringProcessorTest {
 
     // Then
     StepVerifier.create(result)
-            .assertNext(map -> {
-              assertTrue(map.get("vowel").containsAll(Arrays.asList('e', 'o')));
-              assertTrue(map.get("consonant").containsAll(Arrays.asList('h', 'l', 'l')));
-            })
-            .verifyComplete();
+                .assertNext(map -> {
+                   assertTrue(map.get("vowel").containsAll(Arrays.asList('e', 'o')));
+                   assertTrue(map.get("consonant").containsAll(Arrays.asList('h', 'l', 'l')));
+                })
+                .verifyComplete();
   }
 
   @Test
@@ -277,10 +277,10 @@ class ReactiveStringProcessorTest {
 
     // Then
     StepVerifier.create(result)
-            .assertNext(batch -> assertEquals(Arrays.asList("a", "b"), batch))
-            .assertNext(batch -> assertEquals(Arrays.asList("c", "d"), batch))
-            .assertNext(batch -> assertEquals(List.of("e"), batch))
-            .verifyComplete();
+                .assertNext(batch -> assertEquals(Arrays.asList("a", "b"), batch))
+                .assertNext(batch -> assertEquals(Arrays.asList("c", "d"), batch))
+                .assertNext(batch -> assertEquals(List.of("e"), batch))
+                .verifyComplete();
   }
 
   @Test

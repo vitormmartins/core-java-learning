@@ -89,7 +89,7 @@ public class StreamExamples {
   }
 
   /**
-   * Get frequency map of all characters in the string
+   * Get a frequency map of all characters in the string
    */
   public Map<Character, Long> getCharacterFrequencies(String input) {
     return input.chars()
